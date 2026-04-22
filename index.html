@@ -14,6 +14,7 @@
             --gold-light: #E2CF9E;
             --white: #FFFFFF;
         }
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--white);
@@ -21,6 +22,7 @@
             margin: 0;
             scroll-behavior: smooth;
         }
+
         .serif-display { font-family: 'Cinzel', serif; }
         
         .navy-gradient {
@@ -46,13 +48,46 @@
             background-size: 20px 20px;
         }
 
+        /* PRINT / PDF EXPORT CONFIGURATION (HORIZONTAL) */
         @media print {
+            @page {
+                size: landscape;
+                margin: 0;
+            }
+            
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            section {
+                width: 100vw;
+                height: 100vh;
+                page-break-after: always;
+                break-after: page;
+                overflow: hidden;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                padding: 60px !important;
+                box-sizing: border-box;
+            }
+
             .no-print { display: none !important; }
-            body { background: white !important; color: #1B365D !important; }
-            section { page-break-after: always; min-height: auto !important; padding: 50px 0 !important; border-bottom: 1px solid #eee; }
+            
             .navy-gradient { background: #1B365D !important; color: white !important; }
             .gold-text { -webkit-text-fill-color: #C5A059 !important; color: #C5A059 !important; }
+            .bg-gray-50 { background-color: #f9fafb !important; }
             .technical-box { border: 1px solid #ddd !important; }
+            
+            /* Scale adjustments for landscape layout */
+            .max-w-6xl { max-width: 95% !important; }
+            img { max-height: 75vh !important; width: auto !important; object-fit: contain; }
         }
 
         .fade-in { animation: fadeIn 1.2s ease-out forwards; }
@@ -64,16 +99,16 @@
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- Floating Navigation / Print Button -->
     <nav class="fixed top-0 w-full z-50 px-8 py-4 flex justify-between items-center no-print bg-white/90 backdrop-blur-lg border-b border-gray-100">
         <div class="serif-display text-xl font-bold tracking-widest text-[#1B365D]">KINGDOM <span class="font-light text-gray-400 uppercase text-xs">Brand Book</span></div>
         <button onclick="window.print()" class="bg-[#1B365D] text-white px-6 py-2 rounded-full font-bold text-xs tracking-widest hover:bg-[#C5A059] transition-all shadow-lg">
-            EXPORT PDF
+            EXPORT TO PDF (LANDSCAPE)
         </button>
     </nav>
 
     <!-- PAGE 1: COVER -->
-    <section class="relative min-h-screen flex items-center justify-center text-center px-4 overflow-hidden navy-gradient">
+    <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden navy-gradient">
         <div class="hero-pattern"></div>
         <div class="max-w-5xl z-10 fade-in">
             <p class="uppercase tracking-[0.6em] text-[10px] md:text-xs text-[#C5A059] font-bold mb-8 italic">Official Brand Identity Guidelines v1.0</p>
@@ -85,26 +120,26 @@
             <p class="text-lg md:text-xl font-light text-gray-300 max-w-2xl mx-auto mb-16 leading-relaxed">
                 Strategic Visual Sovereignty and Global Identity Manual.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 pt-12 border-t border-white/10 text-left">
+            <div class="grid grid-cols-3 gap-8 mt-20 pt-12 border-t border-white/10 text-left w-full">
                 <div>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Entity</p>
                     <p class="text-base font-semibold text-white">Kingdom International Ministry</p>
                 </div>
                 <div>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Brand Standard</p>
-                    <p class="text-base font-semibold text-white">Navy & Gold / High-End</p>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Standard</p>
+                    <p class="text-base font-semibold text-white">Navy & Gold / Cinematic</p>
                 </div>
                 <div>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Status</p>
-                    <p class="text-base font-semibold text-yellow-600 italic font-bold tracking-widest">INTERNAL USE ONLY</p>
+                    <p class="text-base font-semibold text-yellow-600 italic font-bold">INTERNAL USE ONLY</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PAGE 2: BRAND DNA -->
-    <section class="py-32 px-8 md:px-24 bg-white min-h-screen flex items-center">
-        <div class="max-w-6xl mx-auto">
+    <section class="py-24 px-8 md:px-24 bg-white min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto w-full">
             <div class="grid md:grid-cols-2 gap-20">
                 <div>
                     <h2 class="serif-display text-5xl mb-12 text-[#1B365D]">The <br><span class="text-[#C5A059]">Foundation</span></h2>
@@ -141,306 +176,212 @@
         </div>
     </section>
 
-    <!-- PAGE 3: BRAND AUDIT -->
-    <section class="py-32 px-8 md:px-24 bg-gray-50 min-h-screen flex items-center">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+    <!-- PAGE 3: AUDIT -->
+    <section class="py-24 px-8 md:px-24 bg-gray-50 min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center w-full">
             <div>
                 <h2 class="serif-display text-5xl mb-10 text-[#1B365D]">Legacy vs. <br><span class="italic font-light">Vision</span></h2>
-                <div class="space-y-6 text-gray-700 text-lg leading-relaxed">
-                    <p>The legacy identity served as a foundation. However, its complex circular layout hindered brand consistency across modern digital platforms.</p>
-                    <p>The new direction simplifies the <strong>Lion and Crown</strong> into a bold, sovereign mark. This allows for instant recognition across all media.</p>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">The legacy identity served as a foundation. The new direction simplifies the <strong>Lion and Crown</strong> into a bold, sovereign mark.</p>
+                <div class="flex items-center gap-2 text-red-800 text-[11px] font-bold uppercase mt-8">
+                    <span class="w-2 h-2 rounded-full bg-red-500"></span> Legibility Constraint Resolved
                 </div>
             </div>
-            <div class="relative">
+            <div class="relative flex justify-center">
                 <div class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 technical-box">
                     <p class="text-center text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-6 font-bold">Legacy Identity Audit</p>
                     <img src="https://64.media.tumblr.com/6d04f3e8a2dd9e9f1fd4f5d193f17608/eba661f8010b7d4b-f6/s400x600/3c2701933e305f157d09ba2ea9f2e96412280833.pnj" 
-                         alt="Legacy Logo" class="max-w-[180px] mx-auto grayscale opacity-40 mb-8">
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-2 text-red-800 text-[11px] font-bold uppercase">
-                            <span class="w-2 h-2 rounded-full bg-red-500"></span> Legibility Constraint
-                        </div>
-                        <p class="text-sm text-gray-500 italic">"The arching text and stars are lost when the brand is scaled down for social media profile pictures."</p>
-                    </div>
+                         alt="Legacy Logo" class="max-w-[250px] mx-auto grayscale opacity-40">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PAGE 4: LOGO SYSTEM -->
-    <section class="py-32 px-8 md:px-24 bg-white min-h-screen">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="serif-display text-5xl mb-4 text-center text-[#1B365D]">Logo System</h2>
-            <p class="text-center text-gray-500 mb-20 uppercase tracking-[0.3em] text-xs">Official System Variants</p>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-10 border border-gray-100 rounded-3xl text-center bg-gray-50 technical-box">
+    <section class="py-24 px-8 md:px-24 bg-white min-h-screen flex flex-col justify-center">
+        <div class="max-w-6xl mx-auto w-full text-center">
+            <h2 class="serif-display text-5xl mb-16 text-[#1B365D]">Logo System</h2>
+            <div class="grid grid-cols-3 gap-8">
+                <div class="p-8 border border-gray-100 rounded-3xl bg-gray-50 technical-box">
                     <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-8 font-bold">Primary Logo</p>
-                    <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" alt="Primary" class="h-48 mx-auto object-contain">
+                    <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-40 mx-auto object-contain">
                 </div>
-                <div class="p-10 border border-gray-100 rounded-3xl text-center bg-gray-50 technical-box">
+                <div class="p-8 border border-gray-100 rounded-3xl bg-gray-50 technical-box">
                     <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-8 font-bold">Secondary Logo</p>
-                    <img src="https://64.media.tumblr.com/bf0271d4bedc6cf41cd9606c8be195c7/50bb4f7f61877bf6-42/s400x600/717545c795828a268600d6e4bf2af573287143e3.pnj" alt="Secondary" class="h-48 mx-auto object-contain">
+                    <img src="https://64.media.tumblr.com/bf0271d4bedc6cf41cd9606c8be195c7/50bb4f7f61877bf6-42/s400x600/717545c795828a268600d6e4bf2af573287143e3.pnj" class="h-40 mx-auto object-contain">
                 </div>
-                <div class="p-10 border border-gray-100 rounded-3xl text-center bg-gray-50 technical-box">
+                <div class="p-8 border border-gray-100 rounded-3xl bg-gray-50 technical-box">
                     <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-8 font-bold">Tertiary Wordmark</p>
-                    <img src="https://64.media.tumblr.com/045fc9bec2dd1f0b2322ed8a149025cf/50bb4f7f61877bf6-b9/s540x810/4c0c18c693a67dfc64da4e9234e411a9a04705c3.pnj" alt="Tertiary" class="h-48 mx-auto object-contain">
+                    <img src="https://64.media.tumblr.com/045fc9bec2dd1f0b2322ed8a149025cf/50bb4f7f61877bf6-b9/s540x810/4c0c18c693a67dfc64da4e9234e411a9a04705c3.pnj" class="h-40 mx-auto object-contain">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PAGE 5: POSITIVE & NEGATIVE USAGE -->
-    <section class="py-32 px-8 md:px-24 bg-gray-50 min-h-screen">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="serif-display text-5xl mb-4 text-center text-[#1B365D]">Positive <span class="text-[#C5A059]">&</span> Negative</h2>
-            <p class="text-center text-gray-500 mb-20 uppercase tracking-[0.3em] text-xs">Accessibility & Visibility Guidelines</p>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Positive Version -->
+    <!-- PAGE 5: POSITIVE & NEGATIVE -->
+    <section class="py-24 px-8 md:px-24 bg-gray-50 min-h-screen flex flex-col justify-center">
+        <div class="max-w-6xl mx-auto w-full text-center">
+            <h2 class="serif-display text-5xl mb-16 text-[#1B365D]">Positive <span class="text-[#C5A059]">&</span> Negative</h2>
+            <div class="grid grid-cols-2 gap-12">
                 <div class="bg-white p-12 rounded-3xl shadow-sm border border-gray-100 technical-box flex flex-col items-center">
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-12 font-bold">Positive (On Light Background)</p>
-                    <div class="h-56 flex items-center justify-center overflow-hidden">
-                        <img src="https://64.media.tumblr.com/137930abf059b1661514d2afc5f4ca86/607808258a7b393f-77/s2048x3072/88bd24f747243caf2c80fbae6f616a29d4f05df9.jpg" 
-                             alt="Positive Logo" class="max-h-full rounded-lg">
-                    </div>
-                    <p class="mt-12 text-[11px] text-gray-500 text-center px-8">To be used on white or very light neutral backgrounds to ensure maximum contrast and clarity.</p>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-8 font-bold">Positive Application</p>
+                    <img src="https://64.media.tumblr.com/137930abf059b1661514d2afc5f4ca86/607808258a7b393f-77/s2048x3072/88bd24f747243caf2c80fbae6f616a29d4f05df9.jpg" class="h-48 rounded-lg object-contain">
                 </div>
-
-                <!-- Negative Version -->
                 <div class="bg-[#1B365D] p-12 rounded-3xl shadow-xl technical-box flex flex-col items-center">
-                    <p class="text-[10px] uppercase tracking-widest text-white/40 mb-12 font-bold">Negative (On Dark Background)</p>
-                    <div class="h-56 flex items-center justify-center overflow-hidden">
-                        <img src="https://64.media.tumblr.com/a4cc47a098a53f6ab71498578970a20f/607808258a7b393f-3a/s2048x3072/545dc88a023076a8c9dd85d739f902d76ea3b48d.pnj" 
-                             alt="Negative Logo" class="max-h-full rounded-lg">
-                    </div>
-                    <p class="mt-12 text-[11px] text-white/50 text-center px-8">Reversed white or gold version to be used on navy backgrounds or dark photographic textures.</p>
+                    <p class="text-[10px] uppercase tracking-widest text-white/40 mb-8 font-bold">Negative Application</p>
+                    <img src="https://64.media.tumblr.com/a4cc47a098a53f6ab71498578970a20f/607808258a7b393f-3a/s2048x3072/545dc88a023076a8c9dd85d739f902d76ea3b48d.pnj" class="h-48 rounded-lg object-contain">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PAGE 6: TECHNICAL SPECS -->
-    <section class="py-32 px-8 md:px-24 bg-white min-h-screen">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="serif-display text-5xl mb-16 text-center text-[#1B365D]">Technical <span class="text-[#C5A059]">Precisions</span></h2>
-            
-            <div class="grid md:grid-cols-2 gap-20">
-                <!-- Safe Zone -->
-                <div class="logo-grid-bg p-12 rounded-3xl border border-gray-100 flex flex-col items-center justify-center relative technical-box bg-white">
-                    <div class="absolute top-4 left-6 text-[9px] uppercase tracking-widest text-gray-400 font-bold">Clear Space / Safety Zone</div>
-                    <div class="relative p-12 border border-dashed border-[#C5A059]/40 rounded-lg">
-                        <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-32">
-                        <div class="absolute -top-4 -left-4 text-[#C5A059] font-bold text-xs italic">X</div>
-                        <div class="absolute -bottom-4 -right-4 text-[#C5A059] font-bold text-xs italic">X</div>
-                    </div>
-                    <p class="mt-8 text-[11px] text-center text-gray-500 max-w-xs leading-relaxed">The clear space "X" is defined by the height of the "K" in Kingdom. No other element should enter this area.</p>
+    <!-- PAGE 6: TECHNICAL PRECISIONS -->
+    <section class="py-24 px-8 md:px-24 bg-white min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-20">
+            <div class="logo-grid-bg p-12 rounded-3xl border border-gray-100 relative technical-box flex flex-col items-center justify-center bg-white">
+                <div class="absolute top-4 left-6 text-[9px] uppercase tracking-widest text-gray-400 font-bold">Clear Space / Safe Zone</div>
+                <div class="relative p-12 border border-dashed border-[#C5A059]/40">
+                    <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-32">
+                    <div class="absolute -top-4 -left-4 text-[#C5A059] font-bold text-xs italic text-xs">X</div>
+                    <div class="absolute -bottom-4 -right-4 text-[#C5A059] font-bold text-xs italic text-xs">X</div>
                 </div>
+                <p class="mt-8 text-[11px] text-center text-gray-500 max-w-xs leading-relaxed">The clear space "X" is defined by the height of the "K" in Kingdom.</p>
+            </div>
+            <div class="space-y-12">
+                <div>
+                    <h4 class="uppercase tracking-widest text-xs font-bold text-gray-400 mb-6">Logo Misuse</h4>
+                    <div class="grid grid-cols-2 gap-4 text-[10px] uppercase font-bold text-red-900 text-center">
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-100">Do not stretch</div>
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-100">Do not rotate</div>
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-100">No low contrast</div>
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-100">No shadows</div>
+                    </div>
+                </div>
+                <div class="p-8 bg-gray-50 rounded-2xl border border-gray-200 technical-box">
+                    <h4 class="uppercase tracking-widest text-xs font-bold text-gray-400 mb-4">Minimum Size</h4>
+                    <p class="text-xs text-gray-500 mb-4">Print: 0.75" | Digital: 64px</p>
+                    <div class="flex items-end gap-6 opacity-40">
+                         <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-12">
+                         <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-8">
+                         <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Misuse -->
+    <!-- PÁGINA 7: COLOR & TYPOGRAPHY -->
+    <section class="py-24 px-8 md:px-24 navy-gradient text-white min-h-screen relative">
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-24 relative z-10">
+            <div>
+                <h3 class="text-xs uppercase tracking-[0.3em] font-bold text-gray-400 mb-12">Color DNA</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-6 p-4 bg-white/5 border border-white/10 rounded-2xl technical-box">
+                        <div class="w-20 h-20 rounded-xl bg-[#1B365D]"></div>
+                        <p class="font-bold text-lg">Majestic Navy (#1B365D)</p>
+                    </div>
+                    <div class="flex items-center gap-6 p-4 bg-white/5 border border-white/10 rounded-2xl technical-box">
+                        <div class="w-20 h-20 rounded-xl bg-[#C5A059]"></div>
+                        <p class="font-bold text-lg">Kingdom Gold (#C5A059)</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-[0.3em] font-bold text-gray-400 mb-12">Typography</h3>
                 <div class="space-y-12">
                     <div>
-                        <h4 class="uppercase tracking-widest text-xs font-bold text-gray-400 mb-6">Logo Misuse</h4>
-                        <div class="grid grid-cols-2 gap-4 text-center">
-                            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                <p class="text-[10px] uppercase font-bold text-red-900">Do not stretch</p>
-                            </div>
-                            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                <p class="text-[10px] uppercase font-bold text-red-900">Do not rotate</p>
-                            </div>
-                            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                <p class="text-[10px] uppercase font-bold text-red-900">No low contrast</p>
-                            </div>
-                            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                <p class="text-[10px] uppercase font-bold text-red-900">No shadows</p>
-                            </div>
-                        </div>
+                        <p class="serif-display text-5xl mb-2 text-[#C5A059]">Cinzel</p>
+                        <p class="text-[10px] uppercase tracking-widest text-white/60 font-bold mb-4">Primary Display</p>
+                        <p class="text-sm text-gray-400 leading-relaxed italic">The voice of authority. Used for titles and spiritual quotes.</p>
                     </div>
-                    <div class="p-8 bg-gray-50 rounded-2xl border border-gray-200 technical-box">
-                        <h4 class="uppercase tracking-widest text-xs font-bold text-gray-400 mb-4">Minimum Size</h4>
-                        <p class="text-xs text-gray-500 mb-4">Print: 0.75" | Digital: 64px</p>
-                        <div class="flex items-end gap-6 opacity-40">
-                             <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-12">
-                             <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-8">
-                             <img src="https://64.media.tumblr.com/59bc619334e3f8c43b86cbd1e8630abf/50bb4f7f61877bf6-ec/s540x810/6196e5bc9ddd271b0da4df3552bcd63a3e7d7203.jpg" class="h-5">
-                        </div>
+                    <div class="pt-12 border-t border-white/10">
+                        <p class="font-bold text-4xl mb-2 tracking-tight">Inter Sans</p>
+                        <p class="text-[10px] uppercase tracking-widest text-white/60 font-bold mb-4">Secondary Body</p>
+                        <p class="text-sm text-gray-400 leading-relaxed">Modern and legible. Used for all copy and digital platforms.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PAGE 7: COLOR & TYPOGRAPHY -->
-    <section class="py-32 px-8 md:px-24 navy-gradient text-white min-h-screen relative">
-        <div class="hero-pattern"></div>
-        <div class="max-w-6xl mx-auto relative z-10">
-            <h2 class="serif-display text-5xl mb-24 text-center gold-text">Visual Language</h2>
-            
-            <div class="grid md:grid-cols-2 gap-24">
-                <div class="space-y-16">
-                    <h3 class="text-xs uppercase tracking-[0.3em] font-bold text-gray-400">Color Palette</h3>
-                    <div class="space-y-8">
-                        <div class="flex items-center gap-8 p-6 bg-white/5 border border-white/10 rounded-2xl technical-box">
-                            <div class="w-24 h-24 rounded-xl bg-[#1B365D] shadow-2xl"></div>
-                            <div>
-                                <p class="font-bold text-xl mb-1 text-white">Majestic Navy</p>
-                                <p class="text-xs text-gray-400 font-mono">HEX: #1B365D <br> CMYK: 95, 78, 32, 18</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-8 p-6 bg-white/5 border border-white/10 rounded-2xl technical-box">
-                            <div class="w-24 h-24 rounded-xl bg-[#C5A059] shadow-2xl"></div>
-                            <div>
-                                <p class="font-bold text-xl mb-1 text-white">Kingdom Gold</p>
-                                <p class="text-xs text-gray-400 font-mono">HEX: #C5A059 <br> CMYK: 22, 35, 75, 1</p>
-                            </div>
-                        </div>
-                    </div>
+    <!-- PÁGINA 8: IMAGERY DIRECTION -->
+    <section class="py-24 px-8 md:px-24 bg-white min-h-screen flex flex-col justify-center">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="serif-display text-5xl mb-16 text-center text-[#1B365D]">Imagery <span class="text-[#C5A059]">Direction</span></h2>
+            <div class="grid grid-cols-2 gap-12">
+                <div class="aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-8 border-gray-50 h-96">
+                    <img src="https://64.media.tumblr.com/af5b9b82932a89415bde4c0c0f9c8674/91de50ec321b4e33-58/s2048x3072/bdf6669c88fcd337d1a17d8b0bd41d1f847d309a.pnj" class="w-full h-full object-cover">
                 </div>
+                <div class="aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-8 border-gray-50 h-96">
+                    <img src="https://64.media.tumblr.com/0b2e3b46b97a0a99faf903708cc6d38d/91de50ec321b4e33-6b/s2048x3072/485c8b9e8a9dfccade0f0344cb2da99f823f6180.pnj" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <p class="text-center text-gray-400 mt-12 text-sm italic">Cinematic lighting and authentic spiritual expression.</p>
+        </div>
+    </section>
 
-                <div class="space-y-16">
-                    <h3 class="text-xs uppercase tracking-[0.3em] font-bold text-gray-400">Typography Guide</h3>
-                    <div class="space-y-12">
-                        <div>
-                            <p class="serif-display text-6xl mb-2 text-[#C5A059]">Cinzel</p>
-                            <p class="text-[10px] uppercase tracking-widest text-white/60 font-bold mb-4">Headline / Primary</p>
-                            <p class="text-sm text-gray-400 leading-relaxed italic">The voice of authority. Used for titles and spiritual quotes.</p>
-                        </div>
-                        <div class="pt-12 border-t border-white/10">
-                            <p class="font-bold text-4xl mb-2 tracking-tight">Inter Sans</p>
-                            <p class="text-[10px] uppercase tracking-widest text-white/60 font-bold mb-4">Body / Secondary</p>
-                            <p class="text-sm text-gray-400 leading-relaxed">Modern and legible. Used for all copy and digital platforms.</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- PÁGINA 9: DIGITAL IMPACT -->
+    <section class="py-24 px-8 md:px-24 bg-gray-50 min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+            <img src="https://64.media.tumblr.com/fc615c851fa58be5fd7d604815d0aeff/e2b14fa19fdb8702-25/s1280x1920/46eec0d1ca60572b2327f528c52a23124b100c77.pnj" class="w-full rounded-[3rem] shadow-2xl h-96 object-cover">
+            <div class="grid grid-cols-2 gap-4">
+                <img src="https://64.media.tumblr.com/618329cfcfb641f75c1531e2ec34b44f/e2b14fa19fdb8702-ce/s1280x1920/5816f769c6f762f78cd25a5d2383758d72cee024.pnj" class="rounded-2xl shadow-lg h-44 object-cover">
+                <img src="https://64.media.tumblr.com/6b35360819d54fb5dd12dc541dfcfdf6/e2b14fa19fdb8702-c5/s1280x1920/faf0d0744475ab959bc237475859440ac1bc36f9.pnj" class="rounded-2xl shadow-lg h-44 object-cover">
             </div>
         </div>
     </section>
 
-    <!-- PAGE 8: BRAND VOICE & IMAGERY DIRECTION -->
-    <section class="py-32 px-8 md:px-24 bg-white min-h-screen">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="serif-display text-5xl mb-16 text-[#1B365D]">Verbal <span class="text-[#C5A059]">&</span> Visual Style</h2>
-            
-            <div class="grid md:grid-cols-2 gap-20">
-                <div class="space-y-12">
-                    <div class="p-10 bg-gray-50 rounded-3xl border border-gray-100 technical-box">
-                        <h4 class="uppercase tracking-widest text-[10px] font-bold text-gray-400 mb-8 text-center">Core Tagline</h4>
-                        <p class="serif-display text-4xl text-center text-[#1B365D] italic mb-4">"Freedom is Calling."</p>
-                        <p class="text-xs text-gray-400 text-center uppercase tracking-widest">Universal Call to Action</p>
-                    </div>
-                    <div class="space-y-6">
-                        <h4 class="uppercase tracking-widest text-[10px] font-bold text-gray-400">Imagery Direction</h4>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-                                <img src="https://64.media.tumblr.com/af5b9b82932a89415bde4c0c0f9c8674/91de50ec321b4e33-58/s2048x3072/bdf6669c88fcd337d1a17d8b0bd41d1f847d309a.pnj" 
-                                     alt="Imagery 1" class="w-full h-full object-cover">
-                            </div>
-                            <div class="aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-                                <img src="https://64.media.tumblr.com/0b2e3b46b97a0a99faf903708cc6d38d/91de50ec321b4e33-6b/s2048x3072/485c8b9e8a9dfccade0f0344cb2da99f823f6180.pnj" 
-                                     alt="Imagery 2" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- PÁGINA 10: OFFICE STATIONERY -->
+    <section class="py-24 px-8 md:px-24 bg-white min-h-screen flex flex-col justify-center items-center">
+        <h2 class="serif-display text-5xl mb-12 text-[#1B365D]">Office <span class="text-[#C5A059]">Stationery</span></h2>
+        <div class="p-6 rounded-[2rem] shadow-2xl bg-gray-50 max-w-4xl border border-gray-100">
+            <img src="https://64.media.tumblr.com/1a1fea410b7a5973cfadcda92ecea364/e2b14fa19fdb8702-44/s2048x3072/8d213d96eb7a04c2fd72e060fe8e6b1fba98aa81.pnj" class="w-full rounded-xl">
+        </div>
+    </section>
 
-                <div class="space-y-8 flex flex-col justify-center">
-                    <h4 class="uppercase tracking-widest text-[10px] font-bold text-gray-400 mb-4">Visual Atmosphere</h4>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-6">Photography must capture cinematic lighting, high-contrast environments, and profound emotional depth. Secondary colors should be desaturated to allow the Navy and Gold brand theme to dominate the visual narrative.</p>
-                    <div class="p-6 border-l-4 border-[#C5A059] bg-gray-50">
-                        <p class="font-bold text-sm text-[#1B365D] mb-1 uppercase tracking-widest">Atmosphere Specs</p>
-                        <p class="text-xs text-gray-500 italic">Cinematic God-rays, natural shadows, diverse representation, and soul-stirring clarity.</p>
-                    </div>
-                </div>
+    <!-- PÁGINA 11: OFFICIAL APPAREL (MOCKUPS) -->
+    <section class="py-24 px-8 md:px-24 bg-gray-50 min-h-screen flex flex-col justify-center">
+        <h2 class="serif-display text-4xl mb-12 text-center text-[#1B365D]">Official <span class="text-[#C5A059]">Apparel Mockups</span></h2>
+        <div class="grid grid-cols-4 gap-4">
+            <img src="https://64.media.tumblr.com/317f49c9e51f06ce8e96ab6b9a3b601c/e2b14fa19fdb8702-66/s2048x3072/5b9829d5cedd500227625b8ac8a240918418e256.pnj" class="rounded-2xl shadow-xl h-60 object-cover border-4 border-white">
+            <img src="https://64.media.tumblr.com/6a64c0c4fd50de6d60375b32063e48c2/e2b14fa19fdb8702-6a/s2048x3072/7971029cc0190a90cc47c785a7523a3de02108de.pnj" class="rounded-2xl shadow-xl h-60 object-cover border-4 border-white">
+            <img src="https://64.media.tumblr.com/8da4dc64b34e52dae9348651cf690bfc/e2b14fa19fdb8702-74/s2048x3072/25da3123c1d59b4e994517e81b672888fce059c7.pnj" class="rounded-2xl shadow-xl h-60 object-cover border-4 border-white">
+            <img src="https://64.media.tumblr.com/f8dc92361faea2064cc17018f467bd7e/e2b14fa19fdb8702-f5/s2048x3072/5d1112684f03a6bb294e49fc2ecd79b06838c3f5.pnj" class="rounded-2xl shadow-xl h-60 object-cover border-4 border-white">
+        </div>
+    </section>
+
+    <!-- PÁGINA 12: AMBASSADOR GEAR (MODELS) -->
+    <section class="py-24 px-8 md:px-24 bg-white min-h-screen flex flex-col justify-center">
+        <h2 class="serif-display text-4xl mb-12 text-center text-[#1B365D]">Ministry Leaders <span class="text-[#C5A059]">& Community</span></h2>
+        <div class="grid grid-cols-3 gap-6">
+            <img src="https://64.media.tumblr.com/464cf8980f20660ad5540b1c77febd92/91de50ec321b4e33-c6/s2048x3072/838ace381d6f3d8a1a0fd76c6af47b377b9a16e2.pnj" class="rounded-3xl shadow-xl h-80 object-cover">
+            <img src="https://64.media.tumblr.com/078c92f862349a757b9b0183df51dcdf/91de50ec321b4e33-bd/s2048x3072/bc46062b89116be192689635a88a17361925680a.pnj" class="rounded-3xl shadow-xl h-80 object-cover">
+            <img src="https://64.media.tumblr.com/2cdfa8766a321266a56e1179d67ec1ac/91de50ec321b4e33-f3/s2048x3072/4c0a38a1c726d2db282125d8fdb3b619225b260b.pnj" class="rounded-3xl shadow-xl h-80 object-cover">
+            <img src="https://64.media.tumblr.com/f74a69726649e2e789203cdfd6cb2bf6/91de50ec321b4e33-fb/s2048x3072/0700a0f211be2f5a54fff245ffce1eb6491d9212.pnj" class="rounded-3xl shadow-xl h-80 object-cover">
+            <img src="https://64.media.tumblr.com/485d06a4403ffedfc47adb8e2a5fc5fc/91de50ec321b4e33-72/s2048x3072/10acf1e2ad2dbe27a7ff1bdc8eae7f1907abdf85.pnj" class="rounded-3xl shadow-xl h-80 object-cover">
+            <div class="p-8 bg-[#1B365D] rounded-3xl text-white text-center flex flex-col justify-center h-full technical-box shadow-xl">
+                <p class="serif-display text-2xl gold-text mb-4">Official Gear</p>
+                <p class="text-[10px] uppercase tracking-widest leading-relaxed">Designed for ministry leaders and the general community.</p>
             </div>
         </div>
     </section>
 
-    <!-- PAGE 9: DIGITAL IMPACT -->
-    <section class="py-32 px-8 md:px-24 bg-gray-50 min-h-screen">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="serif-display text-5xl text-[#1B365D]">Digital <span class="text-[#C5A059]">Presence</span></h2>
-                <p class="text-gray-500 mt-4 italic">Modern engagement and broadcast excellence.</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <img src="https://64.media.tumblr.com/fc615c851fa58be5fd7d604815d0aeff/e2b14fa19fdb8702-25/s1280x1920/46eec0d1ca60572b2327f528c52a23124b100c77.pnj" 
-                         alt="Digital Mockup" class="w-full rounded-[3rem] shadow-2xl border-4 border-gray-100">
-                </div>
-                <div class="space-y-8">
-                    <div class="p-8 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                        <h4 class="font-bold text-[#1B365D] uppercase tracking-widest text-xs mb-4">Social Media Feed Examples</h4>
-                        <div class="grid grid-cols-2 gap-4">
-                            <img src="https://64.media.tumblr.com/618329cfcfb641f75c1531e2ec34b44f/e2b14fa19fdb8702-ce/s1280x1920/5816f769c6f762f78cd25a5d2383758d72cee024.pnj" class="rounded-lg shadow">
-                            <img src="https://64.media.tumblr.com/6b35360819d54fb5dd12dc541dfcfdf6/e2b14fa19fdb8702-c5/s1280x1920/faf0d0744475ab959bc237475859440ac1bc36f9.pnj" class="rounded-lg shadow">
-                        </div>
-                    </div>
-                    <div class="p-8 bg-[#1B365D] text-white rounded-2xl shadow-xl">
-                        <p class="serif-display text-2xl text-[#C5A059] italic mb-4">"Engagement comes by seeing."</p>
-                        <p class="text-xs text-gray-400 leading-relaxed uppercase tracking-widest">Digital Outreach Strategy</p>
-                    </div>
-                </div>
-            </div>
+    <!-- PÁGINA 13: SOVEREIGN ENTRANCE -->
+    <section class="py-24 px-8 md:px-24 bg-[#0D1C2E] min-h-screen flex flex-col justify-center items-center">
+        <h2 class="serif-display text-5xl mb-12 gold-text">Sovereign Entrance</h2>
+        <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 max-w-4xl bg-black">
+            <img src="https://64.media.tumblr.com/5b4a067ebe3e1a68d12897335bb50535/e2b14fa19fdb8702-51/s2048x3072/d552265357627c89a3df15227b575986e96e951d.jpg" class="w-full h-96 object-cover">
         </div>
+        <p class="mt-8 text-gray-400 italic text-sm">Brushed gold metallic finish on navy stonework.</p>
     </section>
 
-    <!-- PAGE 10: PHYSICAL ECOSYSTEM (STATIONERY) -->
-    <section class="py-32 px-8 md:px-24 bg-white min-h-screen">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="serif-display text-5xl mb-20 text-[#1B365D]">Office <span class="text-[#C5A059]">Stationery</span></h2>
-            <div class="p-4 rounded-[3rem] shadow-2xl border border-gray-100 overflow-hidden bg-gray-50">
-                <img src="https://64.media.tumblr.com/1a1fea410b7a5973cfadcda92ecea364/e2b14fa19fdb8702-44/s2048x3072/8d213d96eb7a04c2fd72e060fe8e6b1fba98aa81.pnj" 
-                     alt="Stationery Mockup" class="w-full rounded-[2.5rem]">
-            </div>
-        </div>
-    </section>
-
-    <!-- PAGE 11: LIFESTYLE APPAREL -->
-    <section class="py-32 px-8 md:px-24 bg-gray-50 min-h-screen">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="serif-display text-5xl mb-4 text-center text-[#1B365D]">Ambassador <span class="text-[#C5A059]">Apparel</span></h2>
-            <p class="text-center text-gray-400 mb-20 uppercase tracking-[0.2em] text-xs">Premium Lifestyle Branding</p>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Apparel Grid Items -->
-                <div class="space-y-6">
-                    <img src="https://64.media.tumblr.com/464cf8980f20660ad5540b1c77febd92/91de50ec321b4e33-c6/s2048x3072/838ace381d6f3d8a1a0fd76c6af47b377b9a16e2.pnj" class="w-full rounded-3xl shadow-xl border-4 border-white">
-                    <img src="https://64.media.tumblr.com/078c92f862349a757b9b0183df51dcdf/91de50ec321b4e33-bd/s2048x3072/bc46062b89116be192689635a88a17361925680a.pnj" class="w-full rounded-3xl shadow-xl border-4 border-white">
-                </div>
-                <div class="space-y-6 pt-12">
-                    <img src="https://64.media.tumblr.com/2cdfa8766a321266a56e1179d67ec1ac/91de50ec321b4e33-f3/s2048x3072/4c0a38a1c726d2db282125d8fdb3b619225b260b.pnj" class="w-full rounded-3xl shadow-xl border-4 border-white">
-                    <img src="https://64.media.tumblr.com/f74a69726649e2e789203cdfd6cb2bf6/91de50ec321b4e33-fb/s2048x3072/0700a0f211be2f5a54fff245ffce1eb6491d9212.pnj" class="w-full rounded-3xl shadow-xl border-4 border-white">
-                </div>
-                <div class="space-y-6">
-                    <img src="https://64.media.tumblr.com/485d06a4403ffedfc47adb8e2a5fc5fc/91de50ec321b4e33-72/s2048x3072/10acf1e2ad2dbe27a7ff1bdc8eae7f1907abdf85.pnj" class="w-full rounded-3xl shadow-xl border-4 border-white">
-                    <div class="p-8 bg-[#1B365D] rounded-3xl text-white flex flex-col justify-center h-full min-h-[300px] technical-box">
-                        <p class="serif-display text-xl gold-text mb-4">Official Gear</p>
-                        <p class="text-xs text-gray-400 leading-relaxed uppercase tracking-widest">Designed for staff, leadership, and the global church community.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PAGE 12: SOVEREIGN ENTRANCE -->
-    <section class="py-32 px-8 md:px-24 bg-[#0D1C2E] text-white min-h-screen relative overflow-hidden">
-        <div class="hero-pattern"></div>
-        <div class="max-w-6xl mx-auto relative z-10 text-center">
-            <h2 class="serif-display text-5xl mb-20 gold-text">Sovereign Entrance</h2>
-            <div class="rounded-[3.5rem] overflow-hidden shadow-[0_0_100px_rgba(197,160,89,0.2)] border-8 border-white/5 bg-gray-900">
-                <img src="https://64.media.tumblr.com/5b4a067ebe3e1a68d12897335bb50535/e2b14fa19fdb8702-51/s2048x3072/d552265357627c89a3df15227b575986e96e951d.jpg" 
-                     alt="Sovereign Entrance" class="w-full h-full object-cover">
-            </div>
-        </div>
-    </section>
-
-    <!-- PAGE 13: FINAL SEAL -->
-    <section class="py-32 px-8 md:px-24 bg-[#0D1C2E] text-white min-h-screen flex flex-col justify-center items-center text-center">
+    <!-- PÁGINA 14: FINAL SEAL -->
+    <section class="py-24 px-8 md:px-24 bg-[#0D1C2E] min-h-screen flex flex-col justify-center items-center text-center">
         <div class="hero-pattern"></div>
         <div class="max-w-3xl z-10">
             <img src="https://64.media.tumblr.com/6369d49fd3ffade50ece9f8dbcb57d43/607808258a7b393f-e1/s2048x3072/4d67fe91fdfe97a8502f1940d06c06ea888b301c.pnj" 
-                 class="w-80 mx-auto mb-16 opacity-100">
+                 class="w-64 mx-auto mb-16 shadow-2xl">
             <h2 class="serif-display text-6xl mb-8 gold-text uppercase">The Future is Calling</h2>
-            <p class="text-gray-400 text-lg leading-relaxed mb-12 italic max-w-lg mx-auto">"Let every visual touchpoint reflect the majesty of the King we serve. This is our legacy."</p>
+            <p class="text-gray-400 text-lg leading-relaxed mb-12 italic max-w-lg mx-auto">"Let every visual touchpoint reflect the majesty of the King we serve."</p>
             <div class="h-px w-24 bg-[#C5A059] mx-auto mb-12 opacity-50"></div>
             <p class="text-[10px] uppercase tracking-widest text-gray-500">Official Brand Book © 2024</p>
         </div>
